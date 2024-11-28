@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoGebra Applets mit deployggb.js</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Georgia', serif;
+            background-color: #1f2126;
+            color: #ece6ee;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 10px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .text-field {
+            width: 30%;
+            padding: 10px;
+            background-color: #ece6ee;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .applet-container {
+            width: 40%;
+            text-align: center;
+        }
+
+        .corner-image {
+            position: fixed;
+            width: 120px;
+            height: auto;
+            z-index: 1000;
+        }
+
+        .corner-image.bottom-left {
+            bottom: 0;
+            left: 0;
+        }
+
+        .corner-image.bottom-right {
+            bottom: 0;
+            right: 0;
+        }
+
+        .corner-image.top-left {
+            top: 0;
+            left: 0;
+        }
+
+        .corner-image.top-right {
+            top: 0;
+            right: 0;
+        }
+    </style>
+    <script src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+</head>
+<body>
+    <!-- Corner Images -->
+    <img src="Oben-LinksX.png" alt="Corner Image 1" class="corner-image top-left">
+    <img src="Oben-RechtsX.png" alt="Corner Image 2" class="corner-image top-right">
+    <img src="unten-linksX.png" alt="Corner Image 3" class="corner-image bottom-left">
+    <img src="unten-rechtsX.png" alt="Corner Image 4" class="corner-image bottom-right">
+
+    <div class="container">
+        <!-- Zeile 1 -->
+        <div class="row">
+            <div class="text-field">
+                <p>Linker Textbereich: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+            <div class="applet-container" id="applet1-container"></div>
+            <div class="text-field">
+                <p>Rechter Textbereich: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+        </div>
+
+        <!-- Zeile 2 -->
+        <div class="row">
+            <div class="text-field">
+                <p>Linker Textbereich: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            </div>
+            <div class="applet-container" id="applet2-container"></div>
+            <div class="text-field">
+                <p>Rechter Textbereich: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // GeoGebra Applets konfigurieren
+        const applets = [
+            {
+                id: "applet1",
+                material_id: "p3hbemvz", // TicTacToe
+                width: 400,
+                height: 413,
+                container: "applet1-container"
+            },
+            {
+                id: "applet2",
+                material_id: "tepkvhkr", // Hanois Türme
+                width: 400,
+                height: 316,
+                container: "applet2-container"
+            }
+        ];
+
+        // Applets laden
+        applets.forEach(applet => {
+            const parameters = {
+                id: applet.id,
+                material_id: applet.material_id,
+                width: applet.width,
+                height: applet.height,
+                showToolBar: false,
+                showMenuBar: false,
+                showAlgebraInput: false
+            };
+            const ggbApplet = new GGBApplet(parameters, true);
+            ggbApplet.inject(applet.container);
+        });
+    </script>
+</body>
+</html>
