@@ -100,8 +100,20 @@
                 <p>Linker Textbereich: Lorem ipsum dolor sit amet, <br>consectetur adipiscing elit.</p>
             </div>
             <div class="applet-container" id="applet1-container"></div>
-            <div class="text-field">
-                <p>Rechter Textbereich: Sed do eiusmod tempor incididunt <br>ut labore et dolore magna aliqua.</p>
+                                  <div class="text-field" id="highscore-field">
+                <p>Highscore-Tabelle:</p>
+                <table class="highscore-table" id="highscore-table">
+                    <thead>
+                        <tr>
+                            <th>Platz</th>
+                            <th>Name</th>
+                            <th>Punkte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamische Inhalte -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -118,7 +130,7 @@
             }
         ];
 
-        // Applets laden
+        // GeoGebra Applet laden
         applets.forEach(applet => {
             const parameters = {
                 id: applet.id,
@@ -132,6 +144,42 @@
             const ggbApplet = new GGBApplet(parameters, true);
             ggbApplet.inject(applet.container);
         });
+
+        // Highscore-Tabelle abrufen und aktualisieren
+async function fetchHighscores() {
+    // URL mit richtigem JSON-Endpoint
+    const sheetUrl = "https://sheets.googleapis.com/v4/spreadsheets/1I0RCi_AjGgKTBSDBA9F1gA_yvcIauroPOD8pQVc_MmM/values/Formularantworten?key=AIzaSyBjdsk4rzMbGYn2tUKsKookhkAIovriZkI";
+
+    try {
+        const response = await fetch(sheetUrl);
+        const data = await response.json();
+
+        // Daten extrahieren
+        const rows = data.feed.entry.map(entry => ({
+            name: entry.gsx$name.$t,
+            points: entry.gsx$points.$t,
+        }));
+
+        // Tabelle befüllen
+        const tableBody = document.getElementById("highscore-table").querySelector("tbody");
+        tableBody.innerHTML = "";
+        rows.forEach((row, index) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${row.name}</td>
+                <td>${row.points}</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Highscores:", error);
+    }
+}
+
+
+        // Highscores laden
+        fetchHighscores();
     </script>
 </body>
 </html>
