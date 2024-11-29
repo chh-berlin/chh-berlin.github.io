@@ -7,21 +7,42 @@
     <title>Gewinnspiel@CHH</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400&display=swap" rel="stylesheet">
     <style>
-        html, body {
+        html, body {#
+		    font-family: 'Fredoka', sans-serif; /* Einheitliche Schriftart */
+			background-color: #1f2126; /* Einheitlicher Hintergrund */
+			color: #ece6ee; /* Einheitliche Schriftfarbe */
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            font-family: 'Fredoka', sans-serif; /* Webfont verwendet */
-            background-color: #1f2126;
-            color: #ece6ee;
             overflow-x: hidden;
         }
 
+		@media (max-width: 768px) {
+			.corner-image {
+				width: 150px; /* Anpassung für kleinere Bildschirme */
+			}
+			.container {
+				padding: 5px;
+			}
+		}
+
+        /* Header Image */
+        .header-image {
+            width: 100%;
+            height: 10%;
+            display: block;
+			margin-top: 10px       
+		}
+
+    #hidden-text-field {
+        visibility: hidden;
+    }
+
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 10px;
+    max-width: 1200px; /* Einheitlich */
+    margin: 20px auto;
+    padding: 10px;
         }
 
         .row {
@@ -32,28 +53,32 @@
         }
 
         .text-field {
-            width: auto;
-            padding: 10px;
-            background-color: #ece6ee;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: justify;
-            font-size: 12px;
-            color: #000;
-            font-family: 'Fredoka', sans-serif; /* Schriftart Fredoka */
+    width: auto;
+	max-width: max-content; /* Nimmt nur so viel Platz wie nötig */
+    padding: 10px;
+    background-color: rgba(236, 230, 238, 0.8); /* Halbtransparenter Hintergrund */
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: justify;
+    font-size: 12px;
+    color: #000;
+    font-family: 'Fredoka', sans-serif; /* Schriftart Fredoka */
+	display: inline-block; /* Breite passt sich an den Inhalt an */
         }
 
         .applet-container {
-            align-items: center;
-            border:5px;
+        border: 5px solid black; /* Schwarzer Rahmen */
+        padding: 10px; /* Platz zwischen Rahmen und Applet */
+        border-radius: 5px; /* Abgerundete Ecken (optional) */
+        background-color: white; /* Hintergrundfarbe (optional) */
         }
 
         .corner-image {
-            position: fixed;
-            width: 400px;
-            height: auto;
-            z-index: 1000;
-            pointer-events: none; /* Klicks durchlassen */
+    position: fixed;
+    width: 400px;
+    height: auto;
+    z-index: 1000;
+    pointer-events: none; /* Klicks durchlassen */
         }
 
         .corner-image.bottom-left {
@@ -75,12 +100,41 @@
             top: 0;
             right: 0;
         }
-        /* Header Image */
-        .header-image {
+		
+        /* Container für den laufenden Text */
+        .scrolling-text-container {
+            position: fixed;
+            bottom: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            overflow: hidden;
+            background-color: #333; /* Hintergrundfarbe */
+            color: white; /* Textfarbe */
+            padding: 10px 0; /* Abstand um den Text */
         }
+
+        /* Der laufende Text */
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll 10s linear infinite;
+            font-size: 18px;
+        }
+
+        /* Animation von links nach rechts */
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+		
+		        /* Mehrfacher Inhalt für breite Darstellung */
+        .scrolling-text::after {
+            content: " - Hallo - Willkommen - Viel Spaß - Hallo - Willkommen - Viel Spaß";
+        }
+		
     </style>
     <script src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
@@ -96,7 +150,7 @@
     <div class="container">
         <!-- Zeile 1 -->
         <div class="row">
-            <div class="text-field">
+           <div class="text-field" id="hidden-text-field">
                 <p>Linker Textbereich: Lorem ipsum dolor sit amet, <br>consectetur adipiscing elit.</p>
             </div>
             <div class="applet-container" id="applet1-container"></div>
@@ -117,7 +171,11 @@
             </div>
         </div>
     </div>
-
+    <!-- Container für den Text -->
+    <div class="scrolling-text-container">
+        <div class="scrolling-text">Hallo - Willkommen - Viel Spaß</div>
+    </div>
+		
     <script>
         // GeoGebra Applets konfigurieren
         const applets = [
@@ -125,7 +183,7 @@
                 id: "applet1",
                 material_id: "cxxbwem3", // Türme von Hanoi
                 width: 901,
-                height: 665,
+                height: 650,
                 container: "applet1-container"
             }
         ];
