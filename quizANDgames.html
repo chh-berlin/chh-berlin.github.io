@@ -8,22 +8,39 @@
     <!--<link rel="stylesheet" href="styles.css">-->
 </head>
   <style>
-        @import url('https://fonts.cdnfonts.com/css/forte');
-        html, body {
-            margin: 0;
-            padding: 0;
+      @import url('https://fonts.cdnfonts.com/css/forte');
+      html, body {
+	    font-family: 'Fredoka', sans-serif; /* Einheitliche Schriftart */
+		background-color: #1f2126; /* Einheitlicher Hintergrund */
+		color: #ece6ee; /* Einheitliche Schriftfarbe */
+          margin: 0;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+          overflow-x: hidden;
+      }
+	
+	  @media (max-width: 768px) {
+    .corner-image {
+        width: 150px; /* Anpassung für kleinere Bildschirme */
+    }
+    .container {
+        padding: 5px;
+    }
+}
+	         
+	/* Header Image */
+	.header-image {
             width: 100%;
-            height: 100%;
-            font-family: 'Fredoka', sans-serif; /* Webfont verwendet */
-            background-color: #1f2126;
-            color: #ece6ee;
-            overflow-x: hidden;
-        }
+            height: 10%;
+            display: block;
+			margin-top: 10px    
+}
 	  
         .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 10px;
+    max-width: 1200px; /* Einheitlich */
+    margin: 20px auto;
+    padding: 10px;
         }
 
     .row {
@@ -38,28 +55,34 @@
     }
 
     .text-field {
-        width: auto; /* Automatische Anpassung an den Inhalt */
-        max-width: max-content; /* Nimmt nur so viel Platz wie nötig */
-        padding: 10px;
-        background-color: #ece6ee;
-        border-radius: 8px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: justify; /* Blocksatz */
-        font-size: 12px; /* Kleinere Schrift */
-        color: #000; /* Schwarzer Text */
-        display: inline-block; /* Breite passt sich an den Inhalt an */
+    width: auto;
+	max-width: max-content; /* Nimmt nur so viel Platz wie nötig */
+    padding: 10px;
+    background-color: rgba(236, 230, 238, 0.8); /* Halbtransparenter Hintergrund */
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: justify;
+    font-size: 12px;
+    color: #000;
+    font-family: 'Fredoka', sans-serif; /* Schriftart Fredoka */
+	display: inline-block; /* Breite passt sich an den Inhalt an */
     }
 
+
+
     .applet-container {
-        margin-left: 150px; /* Abstand vom linken Rand */
+        border: 5px solid black; /* Schwarzer Rahmen */
+        padding: 10px; /* Platz zwischen Rahmen und Applet */
+        border-radius: 5px; /* Abgerundete Ecken (optional) */
+        background-color: white; /* Hintergrundfarbe (optional) */
     }
 
         .corner-image {
-            position: fixed;
-            width: 20%;
-            height: auto;
-            z-index: 1000;
-            pointer-events: none; /* Klicks durchlassen */
+    position: fixed;
+    width: 400px;
+    height: auto;
+    z-index: 1000;
+    pointer-events: none; /* Klicks durchlassen */
         }
 
         .corner-image.bottom-left {
@@ -81,12 +104,7 @@
             top: 0;
             right: 0;
         }
-    img {
-        max-width: 20%;
-        height: auto;
-       /* margin-top: 10px;  */
-        cursor: pointer;
-    }
+
 	.row img {
         max-width: 20%; /* Bild skaliert responsiv */
         height: auto;
@@ -97,12 +115,40 @@
         margin-top: 0; /* Keine extra Abstände */
     }
 
-        /* Header Image */
-    .header-image {
+        /* Container für den laufenden Text */
+        .scrolling-text-container {
+            position: fixed;
+            bottom: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            overflow: hidden;
+            background-color: #333; /* Hintergrundfarbe */
+            color: white; /* Textfarbe */
+            padding: 10px 0; /* Abstand um den Text */
         }
+
+        /* Der laufende Text */
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll 10s linear infinite;
+            font-size: 18px;
+        }
+
+        /* Animation von links nach rechts */
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+		
+		        /* Mehrfacher Inhalt für breite Darstellung */
+        .scrolling-text::after {
+            content: " - Hallo - Willkommen - Viel Spaß - Hallo - Willkommen - Viel Spaß";
+        }
+
     </style>
     <script src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 </head>
@@ -119,7 +165,7 @@
         <!-- Zeile 1 -->
 	<div class="row">
 		<div class="text-field">
-			<p>Hier geht es zum Gewinnspiel, 👉 <br>
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gewinnspiel, hier Klicken 👉 <br>
 				<h2 style="font-size:28px">Der Turm von Hanoi</h2><br>
 				Um an dem Gewinnspiel teilnehmen <br>zu können, muss vor Spielbeginn ein<br>Spielername angegeben werden.<br>Derjenige Spieler, der den höchsten <br>Turm (mit den meisten Scheiben) ver-<br>setzen konnte, gewinnt.
 			</p>
@@ -138,6 +184,10 @@
                 <p>Schaffst du es, TicTacToe gegen den PC, zu gewinnen?<br>Gewinnst du in jeder Runde?<br>Es gibt eine Strategie mit der du nie mehr verlieren <br>musst. Erkennst du die Strategie?</p>
             </div>
         </div>
+    <!-- Container für den Text -->
+    <div class="scrolling-text-container">
+        <div class="scrolling-text">Hallo - Willkommen - Viel Spaß</div>
+    </div>
     <script>
         // GeoGebra Applets konfigurieren
         const applets = [
