@@ -8,13 +8,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400&display=swap" rel="stylesheet">
     <style>
         /* Global Styles */
-        body {
+        html, body {
+		    font-family: 'Fredoka', sans-serif; /* Einheitliche Schriftart */
+			background-color: #1f2126; /* Einheitlicher Hintergrund */
+			color: #ece6ee; /* Einheitliche Schriftfarbe */
             margin: 0;
-            font-family: 'Fredoka', sans-serif; /* Webfont verwendet */
-            background-color: #1f2126;
-            color: #ece6ee;
             overflow-x: hidden;
         }
+
+@media (max-width: 768px) {
+    .corner-image {
+        width: 150px; /* Anpassung für kleinere Bildschirme */
+    }
+    .container {
+        padding: 5px;
+    }
+}
 
 	    
         /* Header Image */
@@ -94,11 +103,11 @@
 
         /* Corner Images */
         .corner-image {
-            position: absolute;
-            width: 20%;
-            height: auto;
-            z-index: 1000;
-            pointer-events: none; /* Klicks durchlassen */
+    position: fixed;
+    width: 400px;
+    height: auto;
+    z-index: 1000;
+    pointer-events: none; /* Klicks durchlassen */
         }
 
         .corner-image.top-left { top: 0; left: 0; }
@@ -188,6 +197,40 @@
                 font-size: 12px;
             }
         }
+		
+        /* Container für den laufenden Text */
+        .scrolling-text-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+            background-color: #333; /* Hintergrundfarbe */
+            color: white; /* Textfarbe */
+            padding: 10px 0; /* Abstand um den Text */
+        }
+
+        /* Der laufende Text */
+        .scrolling-text {
+            display: inline-block;
+            white-space: nowrap;
+            animation: scroll 10s linear infinite;
+            font-size: 18px;
+        }
+
+        /* Animation von links nach rechts */
+        @keyframes scroll {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+		
+		        /* Mehrfacher Inhalt für breite Darstellung */
+        .scrolling-text::after {
+            content: " - Hallo - Willkommen - Viel Spaß - Hallo - Willkommen - Viel Spaß";
+        }	
     </style>
 </head>
 <body>
@@ -209,6 +252,7 @@
                     <div class="container" onclick="openLink('https://www.geogebra.org/m/d9k5yxkq')">
                         <h2>Mathematik am Campus</h2>
                         <p>Unterrichtsreihe zu den "Rationalen Zahlen" aus Klassenstufe 7.</p>
+						<img src="thumbnail-rat-zahlen3.png" alt="Rat. Zahlen Vorschau"> 
                     </div>
                 </div>
                 <!-- Slide 2 -->
@@ -231,6 +275,10 @@
             <!-- Pagination -->
             <div class="swiper-pagination"></div>
         </div>
+    <!-- Container für den Text -->
+    <div class="scrolling-text-container">
+        <div class="scrolling-text">Hallo - Willkommen - Viel Spaß</div>
+    </div>
     </main>
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
