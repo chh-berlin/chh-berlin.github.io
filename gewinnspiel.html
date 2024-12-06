@@ -66,7 +66,7 @@
         const applets = [
             {
                 id: "applet1",
-                material_id: "nerxabqn", // Türme von Hanoi
+                material_id: "scwcxv8h", // Türme von Hanoi
                 width: 824,
                 height: 644,
                 container: "applet1-container"
@@ -82,7 +82,10 @@
                 height: applet.height,
                 showToolBar: false,
                 showMenuBar: false,
-                showAlgebraInput: false
+                showAlgebraInput: false,
+                enableRightClick: false, // Verhindert Rechtsklick-Konflikte
+                enableShiftDragZoom: true, // Shift + Drag erlaubt Zoomen
+                enablePinchZoom: true // Aktiviert Pinch-to-Zoom für Touch-Geräte
             };
             const ggbApplet = new GGBApplet(parameters, true);
             ggbApplet.inject(applet.container);
