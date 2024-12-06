@@ -77,13 +77,14 @@
         applets.forEach(applet => {
             const parameters = {
                 id: applet.id,
-                material_id: applet.material_id/rc/false/ai/false/sdz/true/smb/false/stb/false/stbh/true/ld/false/sri/true/at/auto,
+                material_id: applet.material_id,
                 width: applet.width,
                 height: applet.height,
+                appName: "classic", // Aktiviert vollständige GeoGebra-Funktionalität
                 showToolBar: false,
                 showMenuBar: false,
                 showAlgebraInput: false,
-                enableRightClick: false, // Verhindert Rechtsklick-Konflikte
+                enableRightClick: true, // Rechtsklick erlauben
                 enableShiftDragZoom: true, // Shift + Drag erlaubt Zoomen
                 enablePinchZoom: true // Aktiviert Pinch-to-Zoom für Touch-Geräte
             };
